@@ -31,8 +31,9 @@ namespace ITG_Project.Controllers
         [Route("SupplierLogin")]
         public async Task<ActionResult<SupplierModel>> sLogin([FromBody] loginDTO login )
         {
-         var supplier = _datacontext.Suppliers.FirstOrDefault(p => p.emailAddress == login.email );
+         var supplier = _datacontext.Suppliers!.FirstOrDefault(p => p.emailAddress == login.email );
          if(null == supplier){return NotFound();}
+
          var claims = new List<Claim>{
             new Claim(ClaimTypes.Name, supplier.emailAddress),
             //ClaimTypes nedir
