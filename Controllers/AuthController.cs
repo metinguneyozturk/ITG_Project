@@ -13,97 +13,124 @@ namespace ITG_Project.Controllers
 
 
 {
-    [ApiController] 
+    [ApiController]
     [Route("[controller]")]
     public class AuthController : Controller
     {
-      private readonly DataContext _datacontext;
+        public DataContext _datacontext;
 
-      public AuthController()
-      {
-         _datacontext = new DataContext();
-      }
+        public AuthController()
+        {
+            _datacontext = new DataContext();
+        }
+ 
 
-    
 
         //SupplierLogin
         [HttpPost]
         [Route("SupplierLogin")]
-        public async Task<ActionResult<SupplierModel>> sLogin([FromBody] loginDTO login )
+        public async Task<ActionResult<SupplierModel>> sLogin([FromBody] loginDTO login)
         {
-         var supplier = _datacontext.Suppliers!.FirstOrDefault(p => p.emailAddress == login.email );
-         if(null == supplier){return NotFound();}
-
-         var claims = new List<Claim>{
-            new Claim(ClaimTypes.Name, supplier.emailAddress),
+            var supplier = _datacontext.Suppliers!.FirstOrDefault(p => p.emailAddress == login.email);
+            if (null == supplier) { return NotFound(); }
+                
+            var claims = new List<Claim>{
+            new Claim(ClaimTypes.AuthenticationInstant, supplier.supplierId.ToString()),
+           
             //ClaimTypes nedir
 
          };
-         var claimIdentity = new ClaimsIdentity(claims, authenticationType: "Login");
          
-         
-         await Request.HttpContext.SignInAsync(
-            "Cookies", 
-            new ClaimsPrincipal(
-               claimIdentity));            
-         
+            var claimIdentity = new ClaimsIdentity(claims, authenticationType: "Login");
             
 
+            await Request.HttpContext.SignInAsync(
+               "Cookies",
+               new ClaimsPrincipal(
+                  claimIdentity));
+                  
+                  
+            return supplier;
 
 
 
 
-         return supplier;
 
-
-
-
-           
         }
 
-          [HttpPost]
+        [HttpPost]
         [Route("RetailerLogin")]
-        public async Task<ActionResult<RetailerModel>> rLogin([FromBody] loginDTO login )
+        public async Task<ActionResult<RetailerModel>> rLogin([FromBody] loginDTO login)
         {
-         
-         
-         var retailer =   _datacontext.Retailers!.FirstOrDefault(p => p.email==login.email );
-         if(null == retailer){return NotFound();}
-         return retailer; //Early exit.
+               //Retailer LOGIN
+
+            // var newSupplier = _datacontext.Retailers!.FirstOrDefault(p => p.email != login.email);
+            // if (null == newSupplier) { return NotFound(); }
+            // return newSupplier; //Early exit.
+            return null;
 
 
 
-      
+
         }
 
 
 
-          //SupplierRegister
+        //SupplierRegister
         [HttpPost]
         [Route("SupplierRegister")]
-        public String sRegister([FromBody] registerDTO register)
+        public  async Task<ActionResult<string>> sRegister([FromBody] sregisterDTO sregister)
         {
-           return null;
+         //SUPPLIERREGISTER
+         
+             var newAccount = new SupplierModel();
+             newAccount.emailAddress = sregister.email;
+             newAccount.name = sregister.name;
+             
+             var existingAccount = _datacontext.Suppliers.FirstOrDefault(p => p.emailAddress == sregister.email);
+            if (null != existingAccount) { return "Account with the same email exists";  }//Early exit.
+            // DataContext sregistercontext = new DataContext();
+            // sregistercontext.Add(newSupplier);
+            // sregistercontext.SaveChanges();
+           
+            
+             _datacontext.Suppliers!.Add(newAccount);
+            _datacontext.SaveChanges();
+            return "Success"; 
+
+
         }
 
 
-         //RetailerRegister
-         [HttpPost]
+        //RetailerRegister
+        [HttpPost]
         [Route("RetailerRegister")]
-        public String rRegister([FromBody] registerDTO register)
+        public async Task<ActionResult<string>> rRegister([FromBody] rregisterDTO rregister)
         {
-           return null;
+            var newAccount = new RetailerModel();
+            newAccount.email = rregister.email;
+            newAccount.phoneNumber = rregister.phoneNumber;
+
+
+            //Fail
+            var existingAccount = _datacontext.Retailers!.FirstOrDefault(p=> p.email == newAccount.email);
+            if(existingAccount!=null) {return "Account with the same email address exists";}
+
+         //Success
+             _datacontext.Retailers!.Add(newAccount);
+            _datacontext.SaveChanges();
+            return "Success"; 
         }
 
-      
 
-        
+
+
 
 
 
 
     }
- }
+}
 
 //   public List<Entitiy> Entities = new List<Entitiy>
 //         public class Entitiy

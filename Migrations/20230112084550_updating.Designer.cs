@@ -3,6 +3,7 @@ using System;
 using ITG_Project.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace adi
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230112084550_updating")]
+    partial class updating
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,23 +24,6 @@ namespace adi
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("Blog", b =>
-                {
-                    b.Property<int>("BlogId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("BlogId"));
-
-                    b.Property<string>("Url")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("BlogId");
-
-                    b.ToTable("Blogs");
-                });
 
             modelBuilder.Entity("ITG_Project.Models.BillModel", b =>
                 {
@@ -47,7 +33,10 @@ namespace adi
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("billId"));
 
-                    b.Property<int>("billedproductproductId")
+                    b.Property<int>("billedProductproductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("productId")
                         .HasColumnType("integer");
 
                     b.Property<int>("totalAmount")
@@ -55,7 +44,7 @@ namespace adi
 
                     b.HasKey("billId");
 
-                    b.HasIndex("billedproductproductId");
+                    b.HasIndex("billedProductproductId");
 
                     b.ToTable("Bills");
                 });
@@ -68,40 +57,24 @@ namespace adi
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("productId"));
 
-                    b.Property<int?>("RetailerModelretailerId")
-                        .HasColumnType("integer");
-
                     b.Property<decimal>("price")
                         .HasColumnType("numeric");
 
                     b.Property<string>("productName")
+                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
                     b.Property<int>("quantity")
                         .HasColumnType("integer");
 
-                    b.Property<int?>("retailerId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("supplierId")
-                        .HasColumnType("integer");
-
                     b.HasKey("productId");
-
-                    b.HasIndex("RetailerModelretailerId");
 
                     b.ToTable("Products");
                 });
 
             modelBuilder.Entity("ITG_Project.Models.RetailerModel", b =>
                 {
-                    b.Property<int>("retailerId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("retailerId"));
-
                     b.Property<string>("email")
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
@@ -110,7 +83,10 @@ namespace adi
                         .HasMaxLength(20)
                         .HasColumnType("character varying(20)");
 
-                    b.HasKey("retailerId");
+                    b.Property<int>("productId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("email");
 
                     b.ToTable("Retailers");
                 });
@@ -146,48 +122,15 @@ namespace adi
                     b.ToTable("Suppliers");
                 });
 
-            modelBuilder.Entity("Post", b =>
-                {
-                    b.Property<int>("PostId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("PostId"));
-
-                    b.Property<int>("BlogId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.HasKey("PostId");
-
-                    b.HasIndex("BlogId");
-
-                    b.ToTable("Post");
-                });
-
             modelBuilder.Entity("ITG_Project.Models.BillModel", b =>
                 {
-                    b.HasOne("ITG_Project.Models.ProductModel", "billedproduct")
+                    b.HasOne("ITG_Project.Models.ProductModel", "billedProduct")
                         .WithMany()
-                        .HasForeignKey("billedproductproductId")
+                        .HasForeignKey("billedProductproductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("billedproduct");
-                });
-
-            modelBuilder.Entity("ITG_Project.Models.ProductModel", b =>
-                {
-                    b.HasOne("ITG_Project.Models.RetailerModel", null)
-                        .WithMany("retailerProducts")
-                        .HasForeignKey("RetailerModelretailerId");
+                    b.Navigation("billedProduct");
                 });
 
             modelBuilder.Entity("ITG_Project.Models.SupplierModel", b =>
@@ -197,27 +140,6 @@ namespace adi
                         .HasForeignKey("productId");
 
                     b.Navigation("product");
-                });
-
-            modelBuilder.Entity("Post", b =>
-                {
-                    b.HasOne("Blog", "Blog")
-                        .WithMany("Posts")
-                        .HasForeignKey("BlogId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Blog");
-                });
-
-            modelBuilder.Entity("Blog", b =>
-                {
-                    b.Navigation("Posts");
-                });
-
-            modelBuilder.Entity("ITG_Project.Models.RetailerModel", b =>
-                {
-                    b.Navigation("retailerProducts");
                 });
 #pragma warning restore 612, 618
         }

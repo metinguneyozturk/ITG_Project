@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 using ITG_Project.Models;
 
 
@@ -23,14 +25,23 @@ namespace ITG_Project.Controllers
       }
 
         [HttpGet]
+        
       public async Task<ActionResult<ProductModel[]>>GetProducts()
         {
-            var x = _datacontext.Products;
-            var y = x!.ToArray();
-            if(y==null){return NotFound();}
             
-            return y;
-            //Tüm listeyi db'i getiriyor, optimize edilmeli.
+            
+            var products = _datacontext.Products;
+            
+        
+            var productsasJSONArray = products;
+            
+            if(productsasJSONArray==null){return NotFound();}
+            
+            return Ok(productsasJSONArray);
+
+
+
+            //Tüm dbsetini getiriyor, optimize edilmeli.
 
 
 
@@ -40,34 +51,83 @@ namespace ITG_Project.Controllers
             //verilen cookie ve claim ikilisi????
            
             
-            //var p = _datacontext.Products;
+            // var p = _datacontext.Products;
             // if(p==null){return NoContent();}
             // return p;
 
 
-            //return Ok(object); is another way
+            // return Ok(); 
         }
 
         [HttpGet("{productId}")]
-        public String GetProduct(int productId)
+        public async Task<ActionResult<ProductModel>> GetProduct(int productId)
         { //içinde Product Quantity de dönsün
-            return "";
+            // if(Request.Cookies["key"]==null){return BadRequest();}
+            // var user = Request.Cookies["Cookies"].Value;
+            //var products = _datacontext.Products.SelectMany(g=> g.productId);
+
+            var product = _datacontext.Products.FirstOrDefault(p=> p.productId == productId);
+            if(product==null){return BadRequest();}
+             
+             
+            
+            return product;
         }
 
 
 
         [HttpPost]
-        public String PostProduct()
+        public async Task<ActionResult<string>> PostProduct(productDTO newProduct)
+        
         {
+           var supId =Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.AuthenticationInstant).Value); 
+           
+                
+            
+            
+            var produc2beAdded = new ProductModel();
+            
+            produc2beAdded.productName = newProduct.productName;
+            produc2beAdded.price = newProduct.price;
+            produc2beAdded.quantity = newProduct.quantity;
+            produc2beAdded.supplierId = supId;
 
-            return "";
+
+            var controlProduct = _datacontext.Products!.FirstOrDefault(p=> p.productName == newProduct.productName);
+             if(controlProduct!=null){return "Product exists";}   
+
+            _datacontext.Products!.Add(produc2beAdded);
+            _datacontext.SaveChanges();
+            return "Success";
         }
 
     
         [HttpDelete("{productId}")]
-        public String Delete(int productId)
+        public async Task<ActionResult<string>> Delete(int productId)
         {
-            return "";
+            var product = _datacontext.Products.FirstOrDefault(p=> p.productId == productId);
+            if(product==null){return BadRequest();}
+
+            _datacontext.Remove(product);
+            _datacontext.SaveChanges();
+
+            return "Deleted Succesfully";
+            
+        }
+
+
+        [HttpGet]
+        [Route("deneme")]
+        public int Deneme()
+        { //içinde Product Quantity de dönsün
+            // if(Request.Cookies["key"]==null){return BadRequest();}
+            // var user = Request.Cookies["Cookies"].Value;
+            
+                     var value = HttpContext.User.Claims.FirstOrDefault(x=> x.Type == ClaimTypes.AuthenticationInstant).Value;
+
+             var supplierId = Int32.Parse(value);
+            
+            return supplierId;
         }
 
 

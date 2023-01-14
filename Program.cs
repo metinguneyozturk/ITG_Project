@@ -1,16 +1,33 @@
+
 using ITG_Project.Models;
 internal class Program
 {
     private static void Main(string[] args)
 
     {
-        // var context = new DataContext();
-        // var x = new SupplierModel();
-        // x.name="Metin1";
-        // x.emailAddress = "metinguneyozturk@gmail.com";
-        // x.phoneNumber="+905076625528";
-        // context.Suppliers.Add(x);
-        // context.SaveChanges();
+            // var context = new DataContext();
+            // var x = new Blog();
+            // var y = new Post();
+            
+           
+            
+            // y.Title="Deneme1";
+            // y.Content="sdgsdg";
+            // y.BlogId=1;
+            //   context.Add(y);
+            // context.SaveChanges();
+           
+            
+          
+
+
+    //     var context = new DataContext();
+    //     var x = new SupplierModel();
+    //     x.name="Metin1";
+    //     x.emailAddress = "metinguneyoztur1k@gmail.com";
+    //    // x.phoneNumber="+905076625528";
+    //     context.Suppliers.Add(x);
+    //     context.SaveChanges();
 
 
         // var context = new DataContext();
@@ -34,6 +51,8 @@ internal class Program
         // Add services to the container.
 
         builder.Services.AddControllers();
+        
+
         builder.Services.AddAuthentication().AddCookie();
                 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();

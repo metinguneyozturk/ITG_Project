@@ -3,6 +3,7 @@ using System;
 using ITG_Project.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace adi
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230114113911_satafternoon")]
+    partial class satafternoon
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -172,6 +175,21 @@ namespace adi
                     b.ToTable("Post");
                 });
 
+            modelBuilder.Entity("ProductModelProductModel", b =>
+                {
+                    b.Property<int>("retailerProductsproductId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("supplierProductsproductId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("retailerProductsproductId", "supplierProductsproductId");
+
+                    b.HasIndex("supplierProductsproductId");
+
+                    b.ToTable("ProductModelProductModel");
+                });
+
             modelBuilder.Entity("ITG_Project.Models.BillModel", b =>
                 {
                     b.HasOne("ITG_Project.Models.ProductModel", "billedproduct")
@@ -208,6 +226,21 @@ namespace adi
                         .IsRequired();
 
                     b.Navigation("Blog");
+                });
+
+            modelBuilder.Entity("ProductModelProductModel", b =>
+                {
+                    b.HasOne("ITG_Project.Models.ProductModel", null)
+                        .WithMany()
+                        .HasForeignKey("retailerProductsproductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ITG_Project.Models.ProductModel", null)
+                        .WithMany()
+                        .HasForeignKey("supplierProductsproductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Blog", b =>

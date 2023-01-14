@@ -3,6 +3,7 @@ using System;
 using ITG_Project.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace adi
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230113152231_removedKeyfromSupid")]
+    partial class removedKeyfromSupid
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -68,9 +71,6 @@ namespace adi
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("productId"));
 
-                    b.Property<int?>("RetailerModelretailerId")
-                        .HasColumnType("integer");
-
                     b.Property<decimal>("price")
                         .HasColumnType("numeric");
 
@@ -89,9 +89,11 @@ namespace adi
 
                     b.HasKey("productId");
 
-                    b.HasIndex("RetailerModelretailerId");
+                    b.HasIndex("retailerId");
 
-                    b.ToTable("Products");
+                    b.HasIndex("supplierId");
+
+                    b.ToTable("ProductModel");
                 });
 
             modelBuilder.Entity("ITG_Project.Models.RetailerModel", b =>
@@ -136,12 +138,7 @@ namespace adi
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.Property<int?>("productId")
-                        .HasColumnType("integer");
-
                     b.HasKey("supplierId");
-
-                    b.HasIndex("productId");
 
                     b.ToTable("Suppliers");
                 });
@@ -185,18 +182,19 @@ namespace adi
 
             modelBuilder.Entity("ITG_Project.Models.ProductModel", b =>
                 {
-                    b.HasOne("ITG_Project.Models.RetailerModel", null)
+                    b.HasOne("ITG_Project.Models.RetailerModel", "retailer")
                         .WithMany("retailerProducts")
-                        .HasForeignKey("RetailerModelretailerId");
-                });
+                        .HasForeignKey("retailerId");
 
-            modelBuilder.Entity("ITG_Project.Models.SupplierModel", b =>
-                {
-                    b.HasOne("ITG_Project.Models.ProductModel", "product")
-                        .WithMany()
-                        .HasForeignKey("productId");
+                    b.HasOne("ITG_Project.Models.SupplierModel", "supplier")
+                        .WithMany("supplierProucts")
+                        .HasForeignKey("supplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-                    b.Navigation("product");
+                    b.Navigation("retailer");
+
+                    b.Navigation("supplier");
                 });
 
             modelBuilder.Entity("Post", b =>
@@ -218,6 +216,11 @@ namespace adi
             modelBuilder.Entity("ITG_Project.Models.RetailerModel", b =>
                 {
                     b.Navigation("retailerProducts");
+                });
+
+            modelBuilder.Entity("ITG_Project.Models.SupplierModel", b =>
+                {
+                    b.Navigation("supplierProucts");
                 });
 #pragma warning restore 612, 618
         }

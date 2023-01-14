@@ -4,7 +4,9 @@ namespace ITG_Project.Models
 {
 public class SupplierModel
 {
-    [Key]
+    
+    
+    [Key] 
     public int supplierId { get; set; }
     // public int password { get; set; }
     [MaxLength(150)]
@@ -13,7 +15,9 @@ public class SupplierModel
     public string emailAddress { get; set; } = string.Empty;
     [MaxLength(150)]
     public string? phoneNumber{get; set;}
+
     
+
     public ProductModel? product{get; set;}
 }
 }
