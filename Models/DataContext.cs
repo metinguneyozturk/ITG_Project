@@ -14,7 +14,6 @@ namespace ITG_Project.Models
         public DbSet<RetailerModel>? Retailers{get;set;}
         public DbSet<SupplierModel>? Suppliers{get;set;}
 
-        public DbSet<Blog>? Blogs{get;set;}
         
         
 
