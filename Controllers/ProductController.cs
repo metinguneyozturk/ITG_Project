@@ -26,8 +26,9 @@ namespace ITG_Project.Controllers
 
         [HttpGet]
 
-        public async Task<ActionResult<ProductModel[]>> GetProducts()
-        {
+        public async Task<ActionResult<ProductModel[]>> viewProducts()
+        {   
+            
 
 
             var products = _datacontext.Products;
@@ -41,7 +42,7 @@ namespace ITG_Project.Controllers
         }
 
         [HttpGet("{productId}")]
-        public async Task<ActionResult<ProductModel>> GetProduct(int productId)
+        public async Task<ActionResult<ProductModel>> viewProduct(int productId)
         { //içinde Product Quantity de dönsün
             // if(Request.Cookies["key"]==null){return BadRequest();}
             // var user = Request.Cookies["Cookies"].Value;
@@ -58,11 +59,14 @@ namespace ITG_Project.Controllers
 
 
         [HttpPost]
+        [Route("CreateProduct")]
         public async Task<ActionResult<string>> PostProduct(productDTO newProduct)
 
         {
+            var supPhone = HttpContext.User.Claims.FirstOrDefault(y=> y.Type == ClaimTypes.Authentication).Value;
             var supId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.AuthenticationInstant).Value);
-            if (supId == null) { return NotFound(); }
+            var sup = _datacontext.Suppliers.FirstOrDefault(p=> p.supplierId == supId && p.phoneNumber.Contains(supPhone));
+            if (sup == null) { return NotFound(); }
 
 
 
@@ -86,8 +90,12 @@ namespace ITG_Project.Controllers
         [HttpDelete("{productId}")]
         public async Task<ActionResult<string>> Delete(int productId)
         {
+            var supPhone = HttpContext.User.Claims.FirstOrDefault(y=> y.Type == ClaimTypes.Authentication).Value;
             var supId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.AuthenticationInstant).Value);
-            if (supId == null) { return NotFound(); }
+            var sup = _datacontext.Suppliers.FirstOrDefault(p=> p.supplierId == supId && p.phoneNumber.Contains(supPhone));
+            if (sup == null) { return NotFound(); }
+            
+           
             var product = _datacontext.Products.FirstOrDefault(p => p.productId == productId && p.supplierId == supId);
             if (product == null) { return BadRequest(); }
 
@@ -101,12 +109,18 @@ namespace ITG_Project.Controllers
         [Route("UpdateProduct")]
         public async Task<ActionResult<string>> UpdateProduct(int productid, int updatedquantity)
         { 
+            var supPhone = HttpContext.User.Claims.FirstOrDefault(y=> y.Type == ClaimTypes.Authentication).Value;
+            var supId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.AuthenticationInstant).Value);
+            var sup = _datacontext.Suppliers.FirstOrDefault(p=> p.supplierId == supId && p.phoneNumber.Contains(supPhone));
+            if (sup == null) { return NotFound(); }
 
-            var existingProduct = _datacontext.Products!.FirstOrDefault(p=> p.productId==productid);
+
+
+            
+           
+            var existingProduct = _datacontext.Products!.FirstOrDefault(p=> p.productId==productid && p.supplierId ==supId);
             if(existingProduct==null){return BadRequest();}
 
-            var supId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.AuthenticationInstant).Value);
-            if(existingProduct.supplierId!=supId){return BadRequest();}
             
             existingProduct.quantity=updatedquantity;
             _datacontext.SaveChanges();
@@ -114,6 +128,9 @@ namespace ITG_Project.Controllers
 
             return "Success";
         }
+
+
+
 
 
         // [HttpGet]

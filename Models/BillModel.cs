@@ -12,6 +12,8 @@ public class BillModel
     [Required]
 
     public int totalAmount { get; set; }
+    public int retailerId{get; set;}
+    public int supplierId{get;set;}
     // [Required]
 
 

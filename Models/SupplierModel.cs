@@ -14,6 +14,7 @@ public class SupplierModel
     [MaxLength(150)]
     public string emailAddress { get; set; } = string.Empty;
     [MaxLength(150)]
+    [Required]
     public string? phoneNumber{get; set;}
 
     

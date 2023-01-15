@@ -31,13 +31,13 @@ namespace ITG_Project.Controllers
         [Route("SupplierLogin")]
         public async Task<ActionResult<SupplierModel>> sLogin([FromBody] loginDTO login)
         {
-            var supplier = _datacontext.Suppliers!.FirstOrDefault(p => p.emailAddress == login.email);
+            var supplier = _datacontext.Suppliers!.FirstOrDefault(p => p.emailAddress == login.email );
             if (null == supplier) { return NotFound(); }
                 
             var claims = new List<Claim>{
             new Claim(ClaimTypes.AuthenticationInstant, supplier.supplierId.ToString()),
+            new Claim(ClaimTypes.Authentication, supplier.phoneNumber),
            
-            //ClaimTypes nedir
 
          };
          
@@ -62,12 +62,25 @@ namespace ITG_Project.Controllers
         [Route("RetailerLogin")]
         public async Task<ActionResult<RetailerModel>> rLogin([FromBody] loginDTO login)
         {
-               //Retailer LOGIN
+               var retailer = _datacontext.Retailers!.FirstOrDefault(p => p.email == login.email);
+            if (null == retailer) { return NotFound(); }
+                
+            var claims = new List<Claim>{
+            new Claim(ClaimTypes.AuthenticationInstant, retailer.retailerId.ToString()),
+            new Claim(ClaimTypes.Authentication,retailer.phoneNumber),
 
-            // var newSupplier = _datacontext.Retailers!.FirstOrDefault(p => p.email != login.email);
-            // if (null == newSupplier) { return NotFound(); }
-            // return newSupplier; //Early exit.
-            return null;
+         };
+         
+            var claimIdentity = new ClaimsIdentity(claims, authenticationType: "Login");
+            
+
+            await Request.HttpContext.SignInAsync(
+               "Cookies",
+               new ClaimsPrincipal(
+                  claimIdentity));
+                  
+                  
+            return retailer;
 
 
 
@@ -86,6 +99,7 @@ namespace ITG_Project.Controllers
              var newAccount = new SupplierModel();
              newAccount.emailAddress = sregister.email;
              newAccount.name = sregister.name;
+             newAccount.phoneNumber=sregister.phoneNumber;
              
              var existingAccount = _datacontext.Suppliers.FirstOrDefault(p => p.emailAddress == sregister.email);
             if (null != existingAccount) { return "Account with the same email exists";  }//Early exit.
@@ -96,7 +110,7 @@ namespace ITG_Project.Controllers
             
              _datacontext.Suppliers!.Add(newAccount);
             _datacontext.SaveChanges();
-            return "Success"; 
+            return "Supplier Account Created"; 
 
 
         }
@@ -119,7 +133,7 @@ namespace ITG_Project.Controllers
          //Success
              _datacontext.Retailers!.Add(newAccount);
             _datacontext.SaveChanges();
-            return "Success"; 
+            return "Retailer Account Created"; 
         }
 
 

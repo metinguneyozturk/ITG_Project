@@ -8,6 +8,7 @@ public class RetailerModel
     public int retailerId { get; set; }
 
     [MaxLength(20)]
+    [Required]
     
     public string? phoneNumber { get; set; }
     
