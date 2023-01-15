@@ -5,62 +5,46 @@ internal class Program
     private static void Main(string[] args)
 
     {
-            // var context = new DataContext();
-            // var x = new Blog();
-            // var y = new Post();
-            
-           
-            
-            // y.Title="Deneme1";
-            // y.Content="sdgsdg";
-            // y.BlogId=1;
-            //   context.Add(y);
-            // context.SaveChanges();
-           
-            
-          
 
+        DataContext db = new DataContext();
+        for(int i =1; i<51; i++){
+        var supplier = new SupplierModel();
+        var retailer = new RetailerModel();
+        var product = new ProductModel();
+        
+        supplier.emailAddress =$"supplierEmailAddress{i}";
+        supplier.name=$"supplierName{i}";
+        supplier.phoneNumber=$"1234{i}";
+        
+        retailer.email=$"retailerEmailAddress{i}";
+        retailer.phoneNumber=$"1234{1}";
 
-    //     var context = new DataContext();
-    //     var x = new SupplierModel();
-    //     x.name="Metin1";
-    //     x.emailAddress = "metinguneyoztur1k@gmail.com";
-    //    // x.phoneNumber="+905076625528";
-    //     context.Suppliers.Add(x);
-    //     context.SaveChanges();
+        product.price=15;
+        product.productName=$"product{i}";
+        product.quantity=50;
+        product.supplierId=1;
+        
+        db.Add(product);
+        db.Add(supplier);
+        db.Add(retailer);
+        db.SaveChanges();
+        }
 
-
-        // var context = new DataContext();
-        // var p = new ProductModel();
-        // p.quantity=100;
-
-        // p.price=15;
-        // p.productName="DenemeUrunu4";
-        // context.Products!.Add(p);
-        // context.SaveChanges();
-
-
-
-        // var p = context.Suppliers.Find(1);
-        // Console.WriteLine(p);
 
         var builder = WebApplication.CreateBuilder(args);
-        
-        
 
-        // Add services to the container.
+
+
 
         builder.Services.AddControllers();
-        
+
 
         builder.Services.AddAuthentication().AddCookie();
-                // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();
 
         var app = builder.Build();
 
-        // Configure the HTTP request pipeline.
         if (app.Environment.IsDevelopment())
         {
             app.UseSwagger();

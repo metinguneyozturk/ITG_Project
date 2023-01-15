@@ -8,7 +8,7 @@ public class SupplierModel
     
     [Key] 
     public int supplierId { get; set; }
-    // public int password { get; set; }
+    
     [MaxLength(150)]
     public string? name{get;set;}
     [MaxLength(150)]

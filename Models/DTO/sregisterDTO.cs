@@ -8,6 +8,5 @@ public class sregisterDTO
     public string? phoneNumber{get; set;}
 
 
-//public string password { get; set; }
 
 }

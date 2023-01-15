@@ -18,7 +18,7 @@ public class RetailerModel
     public List<ProductModel>? retailerProducts{get;set;}
 
 
-    //public int productId {get; set;}
+   
     
 }
 }

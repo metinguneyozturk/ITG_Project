@@ -6,7 +6,7 @@ namespace ITG_Project.Models
     public class ProductModel
     {
         
-        // [PrimaryKey]//Pk
+        //Pk
         [Key]
         public int productId { get; set; }
         
@@ -23,12 +23,7 @@ namespace ITG_Project.Models
          //Fk
         public int supplierId{get;set;}
         
-        // public virtual ICollection<ProductModel>? supplierProducts {get;set;}
-        // public virtual ICollection<ProductModel>? retailerProducts {get;set;}
-
-        // public RetailerModel? retailer{get; set;}
-
-        // public SupplierModel? supplier{get;set;}
+        
 
     }
 }
