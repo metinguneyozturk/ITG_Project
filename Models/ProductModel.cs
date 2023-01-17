@@ -22,6 +22,8 @@ namespace ITG_Project.Models
         
          //Fk
         public int supplierId{get;set;}
+
+        public string productImageURL{get;set;}="https://i.ibb.co/47jDBbg/Default-Image.png";
         
         
 

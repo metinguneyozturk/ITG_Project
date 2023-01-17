@@ -36,7 +36,7 @@ namespace ITG_Project.Controllers
                 
             var claims = new List<Claim>{
             new Claim(ClaimTypes.AuthenticationInstant, supplier.supplierId.ToString()),
-            new Claim(ClaimTypes.Authentication, supplier.phoneNumber),
+            new Claim(ClaimTypes.Authentication, supplier.phoneNumber!),
            
 
          };
@@ -67,7 +67,7 @@ namespace ITG_Project.Controllers
                 
             var claims = new List<Claim>{
             new Claim(ClaimTypes.AuthenticationInstant, retailer.retailerId.ToString()),
-            new Claim(ClaimTypes.Authentication,retailer.phoneNumber),
+            new Claim(ClaimTypes.Authentication,retailer.phoneNumber!),
 
          };
          
@@ -95,7 +95,7 @@ namespace ITG_Project.Controllers
         public  async Task<ActionResult<string>> sRegister([FromBody] sregisterDTO sregister)
         {
          //SUPPLIERREGISTER
-         
+            if(sregister.email==null || sregister.name == null || sregister.phoneNumber==null){return BadRequest();}
              var newAccount = new SupplierModel();
              newAccount.emailAddress = sregister.email;
              newAccount.name = sregister.name;
@@ -103,6 +103,7 @@ namespace ITG_Project.Controllers
              
              var existingAccount = _datacontext.Suppliers.FirstOrDefault(p => p.emailAddress == sregister.email);
             if (null != existingAccount) { return "Account with the same email exists";  }//Early exit.
+            
             // DataContext sregistercontext = new DataContext();
             // sregistercontext.Add(newSupplier);
             // sregistercontext.SaveChanges();
@@ -121,6 +122,7 @@ namespace ITG_Project.Controllers
         [Route("RetailerRegister")]
         public async Task<ActionResult<string>> rRegister([FromBody] rregisterDTO rregister)
         {
+            if(rregister.email==null || rregister.phoneNumber==null){return BadRequest();}
             var newAccount = new RetailerModel();
             newAccount.email = rregister.email;
             newAccount.phoneNumber = rregister.phoneNumber;

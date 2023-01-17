@@ -10,5 +10,7 @@ public class productDTO
 
     public decimal price { get; set; }
 
+    public string image{get;set;} = "https://i.ibb.co/47jDBbg/Default-Image.png";
+
     
 }

@@ -65,7 +65,7 @@ namespace ITG_Project.Controllers
         {
             var supPhone = HttpContext.User.Claims.FirstOrDefault(y=> y.Type == ClaimTypes.Authentication).Value;
             var supId = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.AuthenticationInstant).Value);
-            var sup = _datacontext.Suppliers.FirstOrDefault(p=> p.supplierId == supId && p.phoneNumber.Contains(supPhone));
+            var sup = _datacontext.Suppliers!.FirstOrDefault(p=> p.supplierId == supId && p.phoneNumber.Contains(supPhone));
             if (sup == null) { return NotFound(); }
 
 
@@ -76,6 +76,13 @@ namespace ITG_Project.Controllers
             produc2beAdded.price = newProduct.price;
             produc2beAdded.quantity = newProduct.quantity;
             produc2beAdded.supplierId = supId;
+            
+            Uri uriResult;
+            bool result = Uri.TryCreate(newProduct.image, 
+            UriKind.Absolute, out uriResult) 
+            && uriResult.Scheme == Uri.UriSchemeHttp;
+            
+            produc2beAdded.productImageURL=result ? uriResult.ToString(): produc2beAdded.productImageURL; //Uploaded image Url Should be provieded
 
 
             var controlProduct = _datacontext.Products!.FirstOrDefault(p => p.productName == newProduct.productName);
