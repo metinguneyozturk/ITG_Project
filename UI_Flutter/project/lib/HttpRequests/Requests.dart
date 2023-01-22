@@ -63,32 +63,34 @@ return response;
         
       
     );
-      if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    
-        
-    
-
-    //.values.map<ProductModel>((e) => 
-    //ProductModel.fromJson(e)).toList();
-    
-    // List<ProductModel> res1 = List.from(response.body as List<dynamic>).map((e)=> ProductModel.fromJson(e)).toList();
-    // List<ProductModel> res2 = List<ProductModel>.from(response.body as List<dynamic>).forEach((element) {
-    //   ProductModel.fromJson(response.body)
-    // });
-   
-    
-     
-    
+      if (response.statusCode == 200) {   
     return Products.fromJson(jsonDecode(response.body.toString()));
   } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
     throw Exception('Failed to load data: ${response.statusCode}' );
   }
 }
 
+Future<String> updateProduct(int productId,int updatedquant) async
+  {
+     
+      
+    var response = await http.put(
+      EndPoints().updateProduct(productId, updatedquant),
+        headers: 
+        {
+      "Content-Type" : "application/json",
+      "Accept" : "*/*",
+      "Connection": "keep-alive"
+        }, 
+      
+    );
+    if(response.statusCode ==200)
+    {
+      return response.body;
+    }
+    else{
+      throw Exception('Failed to update quantity');
+    }
 
   }
-
+}
