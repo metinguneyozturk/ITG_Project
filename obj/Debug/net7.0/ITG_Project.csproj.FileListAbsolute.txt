@@ -254,3 +254,9 @@ C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\runtimes\win\lib
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\ITG_RequestCollection.postman_collection.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\ios\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\ios\Runner\Assets.xcassets\LaunchImage.imageset\Contents.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\macos\Runner\Assets.xcassets\AppIcon.appiconset\Contents.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\web\manifest.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\build\flutter_assets\AssetManifest.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\build\flutter_assets\FontManifest.json
