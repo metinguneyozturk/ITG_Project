@@ -70,17 +70,18 @@ return response;
   }
 }
 
-Future<String> updateProduct(int productId,int updatedquant) async
+Future  updateProduct(int productId,int updatedquant) async
   {
      
       
     var response = await http.put(
       EndPoints().updateProduct(productId, updatedquant),
-        headers: 
+       headers: 
         {
       "Content-Type" : "application/json",
       "Accept" : "*/*",
       "Connection": "keep-alive"
+      
         }, 
       
     );
@@ -89,7 +90,7 @@ Future<String> updateProduct(int productId,int updatedquant) async
       return response.body;
     }
     else{
-      throw Exception('Failed to update quantity');
+      throw Exception('Failed to update quantity ${response.statusCode}');
     }
 
   }

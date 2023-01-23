@@ -45,7 +45,7 @@ late Future<Products> futureProduct;
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.business),
-            label: 'Add Product',
+            label: 'Update Product',
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.school),

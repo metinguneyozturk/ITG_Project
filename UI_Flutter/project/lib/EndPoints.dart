@@ -61,7 +61,8 @@ class EndPoints{
    String createProduct = "http://localhost:5183/Product/CreateProduct";
    //JSON body lazım 
    Uri updateProduct(int productid,int updatedquantity){
-    var uri = Uri.http('localhost:5183', '/Product/UpdateProduct?$productid=&$updatedquantity=');
+    var uri = Uri.http('localhost:5183', '/Product/UpdateProduct',{'productid' : '$productid' ,'updatedquantity':'$updatedquantity' });
+    print(uri.toString());
    return uri;
    } 
   String defaultimg = "https://i.ibb.co/47jDBbg/Default-Image.png";

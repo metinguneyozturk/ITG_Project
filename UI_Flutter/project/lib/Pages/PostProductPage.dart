@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:project/AlertDialogs/oneButtonAlertDialog.dart';
 import 'package:project/HttpRequests/Requests.dart';
 
@@ -17,10 +18,10 @@ class _PostProductPageState extends State<PostProductPage> {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Material App',
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Material App Bar'),
-        ),
+        
+        
         body:SingleChildScrollView(
         child: Column(
           children: <Widget>[
@@ -53,11 +54,17 @@ class _PostProductPageState extends State<PostProductPage> {
               padding: EdgeInsets.symmetric(horizontal: 15),
               
               child: TextButton(
-                onPressed: (() {
+                onPressed: (() async{
                   if(idcontroller.text.isEmpty || updatedquantity.text.isEmpty){showOneButtonAlertDialog(context, "Error", "Retry", "Miss entered the values please check");}
 
-                  Requests().updateProduct(int.parse(idcontroller.text.toString()), int.parse(updatedquantity.text.toString()));
+                  var x =await Requests().updateProduct(int.parse(idcontroller.text.toString()), int.parse(updatedquantity.text.toString()));
+                  if(x.toString().compareTo("Success")==0){
                   return showOneButtonAlertDialog(context, "Result", "Ok", "Process succeded.");
+                  
+                  }
+                  else{
+                    return showOneButtonAlertDialog(context, "Error", "Retry", "An error occured");
+                  }
                   
                 }), child: Text("Update"),
 
