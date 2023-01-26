@@ -176,7 +176,7 @@ class _LoginDemoState extends State<LoginDemo> {
               
             onPressed:(){
               Navigator.push(context, MaterialPageRoute(builder: (context)=>
-              const RegisterPage()
+               RegisterPage()
               ));
             }
             ,

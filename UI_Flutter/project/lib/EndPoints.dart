@@ -36,7 +36,10 @@ class EndPoints{
   }  
   
   //JSON body lazım
-  String registerSupplier = "http://localhost:5183/Auth/SupplierRegister";
+  Uri registerSupplier(){
+    var uri = Uri.http('localhost:5183','/Auth/SupplierRegister');
+    return uri;
+  }  
   //JSON body lazım
   String registerRetailer = "http://localhost:5183/Auth/RetailerRegister";
   //JSON body lazım

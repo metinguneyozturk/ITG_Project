@@ -94,4 +94,28 @@ Future  updateProduct(int productId,int updatedquant) async
     }
 
   }
+  Future createSupplier(String name, String email, String phoneNumber) async{
+     Map data ={
+        'name': name,
+        'email': email,
+        'phoneNumber': phoneNumber,
+      };
+    var response = await http.post(EndPoints().registerSupplier(),
+     headers: 
+        {
+      "Content-Type" : "application/json",
+      "Accept" : "*/*",
+      "Connection": "keep-alive"
+        }, 
+      body: jsonEncode(data)
+    );
+   if(response.statusCode ==200)
+    {
+      return response.body;
+    }
+    else{
+      throw Exception('Failed to Create Account ${response.statusCode}');
+    }
+
+  }
 }

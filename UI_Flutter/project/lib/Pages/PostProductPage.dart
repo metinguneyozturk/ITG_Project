@@ -25,6 +25,7 @@ class _PostProductPageState extends State<PostProductPage> {
         body:SingleChildScrollView(
         child: Column(
           children: <Widget>[
+            SizedBox(height: 25,),
             Padding(
               //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
               padding: EdgeInsets.symmetric(horizontal: 15),
