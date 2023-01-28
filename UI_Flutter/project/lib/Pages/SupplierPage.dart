@@ -1,9 +1,13 @@
+import 'dart:html';
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
 import 'package:project/EndPoints.dart';
 import 'package:project/HttpRequests/Requests.dart';
 import 'package:project/Models/ProductModel.dart';
 import 'package:project/Pages/CreateProductPage.dart';
+import 'package:project/Pages/DetailedProduct.dart';
 import 'package:project/Pages/PostProductPage.dart';
 
 
@@ -40,8 +44,19 @@ late Future<Products> futureProduct;
       
       home: Scaffold(
         appBar:
-        AppBar(actions: [
-          ElevatedButton(onPressed: (){
+        AppBar(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.white,
+          actions: [
+          ElevatedButton(
+            style: 
+            ElevatedButton.styleFrom(
+              shape: 
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5)
+                )),
+
+            onPressed: (){
             Navigator.pop(context);
             Navigator.push(context, MaterialPageRoute(builder: (context)=>
             SupplierPage()
@@ -107,53 +122,67 @@ late Future<Products> futureProduct;
                 return ListView.builder(
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.products.length,
+                    
                     itemBuilder: (context, index) {
                       
-                      return Row(
-                        children: [
-                         
-                          Container(
-                            height: 180,
-                            width: 180,
-                            color: Colors.green[100 * (1 + index)],
-                            child: Image.network(
-                                '${snapshot.data.products[index].productImageURL}'),
+                      return Card(
+                     
+                        
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>
+                            DetailedProduct(productModel: snapshot.data.products[index])
+                            ));
+                          },
+                          child: Row(
+                             
+                            
+                            children: [
+                             
+                              Container(
+                                height: 180,
+                                width: 180,
+                                color: Colors.green[100 * (1 + index)],
+                                child: Image.network(
+                                    '${snapshot.data.products[index].productImageURL}'),
+                              ),
+                              Container(
+                                height: 180,
+                                width: 180,
+                                color: Colors.green[100 * (1 + index)],
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      color: Colors.green[100 * (1 + index)],
+                                      child: Text(
+                                          "Product Name: ${snapshot.data.products[index].productName}"),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      color: Colors.green[100 * (1 + index)],
+                                      child: Text(
+                                          "Quantity: ${snapshot.data.products[index].quantity}"),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      color: Colors.green[100 * (1 + index)],
+                                      child: Text(
+                                          "Price: ${snapshot.data.products[index].price}"),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.topLeft,
+                                      color: Colors.green[100 * (1 + index)],
+                                      child: Text(
+                                          "Supplier: ${snapshot.data.products[index].supplierId}"),
+                                    ),
+                                   
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                          Container(
-                            height: 180,
-                            width: 180,
-                            color: Colors.green[100 * (1 + index)],
-                            child: Column(
-                              children: [
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  color: Colors.green[100 * (1 + index)],
-                                  child: Text(
-                                      "Product Name: ${snapshot.data.products[index].productName}"),
-                                ),
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  color: Colors.green[100 * (1 + index)],
-                                  child: Text(
-                                      "Quantity: ${snapshot.data.products[index].quantity}"),
-                                ),
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  color: Colors.green[100 * (1 + index)],
-                                  child: Text(
-                                      "Price: ${snapshot.data.products[index].price}"),
-                                ),
-                                Container(
-                                  alignment: Alignment.topLeft,
-                                  color: Colors.green[100 * (1 + index)],
-                                  child: Text(
-                                      "Supplier: ${snapshot.data.products[index].supplierId}"),
-                                ),
-                               
-                              ],
-                            ),
-                          ),
-                        ],
+                        ),
                       );
                     });
               }),
