@@ -128,7 +128,7 @@ class _LoginDemoState extends State<LoginDemo> {
                               if(response.statusCode!=200 && emailcontroller.text.isNotEmpty)
                               {showOneButtonAlertDialog(context, "Error", "Ok", "Wrong E-mail, Try again");
                               }
-                          } );;
+                          } );  
                           // var response = await http.post(
                             
                           //     endpoints.loginSupplier(),

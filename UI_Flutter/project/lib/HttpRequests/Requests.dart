@@ -118,4 +118,30 @@ Future  updateProduct(int productId,int updatedquant) async
     }
 
   }
+  Future createProduct(String productName, int quantity, int price) async{
+     Map data ={
+        'productName': productName,
+        'quantity': quantity,
+        'price': price,
+      };
+    var response = await http.post(EndPoints().createProduct(),
+     headers: 
+        {
+      "Content-Type" : "application/json",
+      "Accept" : "*/*",
+      "Connection": "keep-alive"
+        }, 
+      body: jsonEncode(data)
+    );
+   if(response.statusCode ==200)
+    {
+      return response.body;
+    }
+    else{
+      throw Exception('Failed to Create Product ${response.statusCode}');
+    }
+
+  }
+
+  
 }

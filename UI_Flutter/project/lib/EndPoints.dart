@@ -61,7 +61,10 @@ class EndPoints{
    {
     return "http://localhost:5183/Product?$productId";
    }
-   String createProduct = "http://localhost:5183/Product/CreateProduct";
+   Uri createProduct(){
+    var uri = Uri.http('localhost:5183', '/Product/CreateProduct');
+   return uri;
+   } 
    //JSON body lazım 
    Uri updateProduct(int productid,int updatedquantity){
     var uri = Uri.http('localhost:5183', '/Product/UpdateProduct',{'productid' : '$productid' ,'updatedquantity':'$updatedquantity' });

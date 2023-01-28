@@ -3,6 +3,7 @@ import "package:http/http.dart" as http;
 import 'package:project/EndPoints.dart';
 import 'package:project/HttpRequests/Requests.dart';
 import 'package:project/Models/ProductModel.dart';
+import 'package:project/Pages/CreateProductPage.dart';
 import 'package:project/Pages/PostProductPage.dart';
 
 
@@ -22,7 +23,7 @@ late Future<Products> futureProduct;
     super.initState();
     futureProduct = Requests().getAllProducts();
     futureProduct.then((futureProduct){
-      print("Sa ${futureProduct.products!.length}");
+      //print("Sa ${futureProduct.products!.length}");
     });
           
   }
@@ -30,11 +31,24 @@ late Future<Products> futureProduct;
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      
       debugShowCheckedModeBanner: false,
       title: 'Material App',
       
       
+      
+      
       home: Scaffold(
+        appBar:
+        AppBar(actions: [
+          ElevatedButton(onPressed: (){
+            Navigator.pop(context);
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>
+            SupplierPage()
+            ));
+          }, child: Text("Refresh"))
+
+        ],),
         bottomNavigationBar: BottomNavigationBar(
         items: const  <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -48,8 +62,8 @@ late Future<Products> futureProduct;
             label: 'Update Product',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
-            label: 'Nothing here :)',
+            icon: Icon(Icons.create_rounded),
+            label: 'Create Product',
           ),
         ],
         onTap: (value) {
@@ -67,6 +81,9 @@ late Future<Products> futureProduct;
             
             break;
             case 2:
+            Navigator.push(context, MaterialPageRoute(builder: (context)=>
+            CreateProductPage()
+            ));
 
             break;
           }
@@ -76,6 +93,7 @@ late Future<Products> futureProduct;
 
         body: Container(
           child: Center(
+            
           child: FutureBuilder(
               future: futureProduct,
               builder: (BuildContext ctx, AsyncSnapshot snapshot) {
@@ -90,8 +108,10 @@ late Future<Products> futureProduct;
                     scrollDirection: Axis.vertical,
                     itemCount: snapshot.data!.products.length,
                     itemBuilder: (context, index) {
+                      
                       return Row(
                         children: [
+                         
                           Container(
                             height: 180,
                             width: 180,
