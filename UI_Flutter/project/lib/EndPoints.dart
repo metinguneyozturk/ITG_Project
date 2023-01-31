@@ -39,9 +39,20 @@ class EndPoints{
   Uri registerSupplier(){
     var uri = Uri.http('localhost:5183','/Auth/SupplierRegister');
     return uri;
-  }  
+  }
+  Uri registerRetailer(){
+    var uri = Uri.http('localhost:5183','/Auth/RetailerRegister');
+    return uri;
+  }
+
+
+  Uri generatebilling(int wantedproduct, int desiredquantity){
+
+    var uri = Uri.http('localhost:5183', '/Bill/GenerateBill',{'wantedProduct' : '$wantedproduct' ,'desiredQuant':'$desiredquantity' });
+    return uri;
+  }
+   
   //JSON body lazım
-  String registerRetailer = "http://localhost:5183/Auth/RetailerRegister";
   //JSON body lazım
    
    

@@ -6,7 +6,7 @@ showOneButtonAlertDialog(BuildContext context,String title,String buttonText, St
                       Widget okButton = TextButton(
                         child: Text(buttonText),
                         onPressed: () {
-                        Navigator.pop(context);
+                        Navigator.of(context, rootNavigator: true).pop();
                         
                          
                           

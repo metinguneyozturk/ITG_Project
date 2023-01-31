@@ -36,7 +36,6 @@ namespace ITG_Project.Controllers
             var currRetailer = Int32.Parse(HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.AuthenticationInstant).Value);
             var product = _datacontext.Products.FirstOrDefault(p => p.productId == wantedProduct);
             if (currRetailer == null || product == null) { return NotFound(); }
-            product.retailerId = currRetailer;
 
 
             generatedBill.billedproduct = product;

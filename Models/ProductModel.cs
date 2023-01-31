@@ -18,7 +18,6 @@ namespace ITG_Project.Models
         
         public decimal price { get; set; }
 
-        public int? retailerId{get;set;}
         
          //Fk
         public int supplierId{get;set;}

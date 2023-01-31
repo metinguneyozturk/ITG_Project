@@ -34,7 +34,7 @@ class RegisterPage extends StatelessWidget {
                 controller: emailcontroller,
                 decoration: InputDecoration(
                     border: OutlineInputBorder(),
-                    labelText: 'Supplier Email',
+                    labelText: 'Email',
                     hintText: 'Enter a valid e-mail'),
               ),
             ),
@@ -73,7 +73,7 @@ class RegisterPage extends StatelessWidget {
               child: TextButton(
                 onPressed:  () async {
                   if(emailcontroller.text.isEmpty || namecontroller.text.isEmpty|| phonecontroller.text.isEmpty){
-                    showOneButtonAlertDialog(context, "Error", "Retry", "Please provide information");
+                    return showOneButtonAlertDialog(context, "Error", "Retry", "Please provide information");
                   }
                   var response = await
                   Requests().createSupplier(namecontroller.text.toString(),
@@ -82,9 +82,56 @@ class RegisterPage extends StatelessWidget {
                    
                    if(response.toString().compareTo("Supplier Account Created")==0)
                    {
-                    showOneButtonAlertDialog(context, "Notification", "Ok", "Account Created");
+                    return showOneButtonAlertDialog(context, "Notification", "Ok", "Account Created");
                    }
                    else if(response.toString().compareTo("Account with the same email exists")==0) {
+                    return showOneButtonAlertDialog(context, "Error", "Ok", "Account with the same email exists");
+                  
+                   }
+                   else{return showOneButtonAlertDialog(context, "Error", "Ok", "An error occured");
+                   }
+                  
+                  
+                },
+                
+                child: const Text("Supplier Register",
+                style: TextStyle(color: Colors.white, fontSize: 25),
+                ),
+                    
+              ),
+            ),
+            const SizedBox(
+              height: 20,
+            ),
+
+
+
+
+          
+
+
+
+            Container(
+              //padding: const EdgeInsets.only(left:15.0,right: 15.0,top:0,bottom: 0),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              height: 50,
+              width: 250,
+              decoration: BoxDecoration(
+                color: Colors.blue, borderRadius: BorderRadius.circular(20),
+              ),
+              child: TextButton(
+                onPressed:  () async {
+                  if(emailcontroller.text.isEmpty || namecontroller.text.isNotEmpty|| phonecontroller.text.isEmpty){
+                    return showOneButtonAlertDialog(context, "Error", "Retry", "Retailer account only requires email and phonenumber information");
+                  }
+                  var response = await
+                  Requests().createRetailer(emailcontroller.text.toString(),phonecontroller.text.toString());
+                   
+                   if(response.body.toString().compareTo("Retailer Account Created")==0)
+                   {
+                    showOneButtonAlertDialog(context, "Notification", "Ok", "Account Created");
+                   }
+                   else if(response.body.toString().compareTo("Account with the same email address exists")==0) {
                     showOneButtonAlertDialog(context, "Error", "Ok", "Account with the same email exists");
                   
                    }
@@ -94,7 +141,7 @@ class RegisterPage extends StatelessWidget {
                   
                 },
                 
-                child: Text("Supplier Register",
+                child: const Text("Retailer Register",
                 style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
                     

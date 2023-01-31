@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:project/EndPoints.dart';
 import 'package:project/Models/ProductModel.dart';
@@ -38,6 +39,25 @@ class Requests
       
     var response = await http.post(
       EndPoints().loginSupplier(),
+        headers: 
+        {
+      "Content-Type" : "application/json",
+      "Accept" : "*/*",
+      "Connection": "keep-alive"
+        }, 
+      body: jsonEncode(data)
+    );
+
+return response;
+  }
+   Future retailerloginrequest(String email) async
+  {
+     Map data ={
+        'email': email,
+      };
+      
+    var response = await http.post(
+      EndPoints().loginRetailer(),
         headers: 
         {
       "Content-Type" : "application/json",
@@ -142,6 +162,43 @@ Future  updateProduct(int productId,int updatedquant) async
     }
 
   }
+  Future generatebilling(int wantedproduct, int desiredquantity) async{
+    var response = await http.post(EndPoints().generatebilling(wantedproduct, desiredquantity),
+    
 
-  
+    );
+     if(response.statusCode ==200)
+    {
+      return response.body;
+    }
+    else{
+      throw Exception('Failed to generate billing ${response.statusCode}');
+    }
+  }
+
+  Future createRetailer(String email, String phoneNumber) async{
+     Map data ={
+        
+        'email': email,
+        'phoneNumber': phoneNumber,
+        
+      };
+    var response = await http.post(EndPoints().registerRetailer(),
+     headers: 
+        {
+      "Content-Type" : "application/json",
+      "Accept" : "*/*",
+      "Connection": "keep-alive"
+        }, 
+      body: jsonEncode(data)
+    );
+   if(response.statusCode ==200)
+    {
+      return response;
+    }
+    else{
+      throw Exception('Failed to Create Account ${response.statusCode}');
+    }
+
+  }
 }

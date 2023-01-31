@@ -15,7 +15,6 @@ public class RetailerModel
     [MaxLength(150)]
     public string? email { get; set; } 
 
-    public List<ProductModel>? retailerProducts{get;set;}
 
 
    
