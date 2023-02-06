@@ -101,7 +101,7 @@ namespace ITG_Project.Controllers
              newAccount.name = sregister.name;
              newAccount.phoneNumber=sregister.phoneNumber;
              
-             var existingAccount = _datacontext.Suppliers.FirstOrDefault(p => p.emailAddress == sregister.email);
+             var existingAccount = _datacontext.Suppliers!.FirstOrDefault(p => p.emailAddress == sregister.email);
             if (null != existingAccount) { return "Account with the same email exists";  }//Early exit.
             
             // DataContext sregistercontext = new DataContext();

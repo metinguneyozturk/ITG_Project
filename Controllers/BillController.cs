@@ -47,7 +47,7 @@ namespace ITG_Project.Controllers
 
 
 
-
+            _datacontext.Bills.Add(generatedBill);
             _datacontext.SaveChanges();
             return Ok(wantedProduct);
         }

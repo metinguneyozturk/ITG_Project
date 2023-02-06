@@ -68,7 +68,7 @@ class _DetailedProductState extends State<DetailedProduct> {
                        showOneButtonAlertDialog(context, "Error", "Ok", "Desired quantity is higher than in stocks");
                   }
                   else{
-                  Requests().generatebilling(widget.productModel.productId!, int.parse(quantitycontroller.text)).
+                  Requests().generatebilling(widget.productModel.productId!, int.parse(quantitycontroller.text.toString())).
                   then((value) 
                   {
                     print(value.toString());

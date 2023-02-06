@@ -1,0 +1,281 @@
+{
+	"info": {
+		"_postman_id": "13df63d1-cf87-4056-aa22-dfdc15b2cb5a",
+		"name": "ITG_RequestCollection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25163781"
+	},
+	"item": [
+		{
+			"name": "generateBill",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5183/Bill/GenerateBill?wantedProduct=&desiredQuant=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Bill",
+						"GenerateBill"
+					],
+					"query": [
+						{
+							"key": "wantedProduct",
+							"value": ""
+						},
+						{
+							"key": "desiredQuant",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getproductbyId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5183/Product?productId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Product"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeleteProductwithId",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5183/Product?productId",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Product"
+					],
+					"query": [
+						{
+							"key": "productId",
+							"value": null
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CreateProduct",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"productName\": \"string\",\r\n  \"quantity\": 0,\r\n  \"price\": 0\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5183/Product/CreateProduct",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Product",
+						"CreateProduct"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdateProductQuant",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5183/Product/UpdateProduct?productid=&updatedquantity=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Product",
+						"UpdateProduct"
+					],
+					"query": [
+						{
+							"key": "productid",
+							"value": ""
+						},
+						{
+							"key": "updatedquantity",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SupplierLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5183/Auth/SupplierLogin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Auth",
+						"SupplierLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RetailerLogin",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5183/Auth/RetailerLogin",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Auth",
+						"RetailerLogin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "SupplierRegister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"name\": \"string\",\r\n  \"email\": \"string\",\r\n  \"phoneNumber\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5183/Auth/SupplierRegister",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Auth",
+						"SupplierRegister"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "RetailerRegister",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"string\",\r\n  \"phoneNumber\": \"string\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:5183/Auth/RetailerRegister",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Auth",
+						"RetailerRegister"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ViewAllProducts",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5183/Product",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5183",
+					"path": [
+						"Product"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
