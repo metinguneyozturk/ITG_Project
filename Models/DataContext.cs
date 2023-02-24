@@ -21,6 +21,7 @@ namespace ITG_Project.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            
             optionsBuilder.
             UseNpgsql(
                 "Host=localhost;Database=ITG_Project;Username=remote;Password=1234");

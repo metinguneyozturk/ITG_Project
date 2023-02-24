@@ -51,7 +51,6 @@ C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\Microsoft.CodeAn
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\Microsoft.CodeAnalysis.CSharp.Features.dll
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\Microsoft.CodeAnalysis.CSharp.Scripting.dll
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\Microsoft.CodeAnalysis.CSharp.Workspaces.dll
-C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\Microsoft.CodeAnalysis.Elfie.dll
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\Microsoft.CodeAnalysis.Features.dll
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\Microsoft.CodeAnalysis.Razor.dll
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\Microsoft.CodeAnalysis.Scripting.dll
@@ -260,3 +259,11 @@ C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\proje
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\web\manifest.json
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\build\flutter_assets\AssetManifest.json
 C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\build\flutter_assets\FontManifest.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\nuget.config
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\build\web\assets\AssetManifest.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\build\web\assets\FontManifest.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\build\web\manifest.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\UI_Flutter\project\build\web\version.json
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\MessagePack.dll
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\MessagePack.Annotations.dll
+C:\Users\metin\OneDrive\Masaüstü\ITG_Project\bin\Debug\net7.0\Microsoft.VisualStudio.Debugger.Contracts.dll

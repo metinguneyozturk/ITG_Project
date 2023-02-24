@@ -3,8 +3,8 @@ import 'dart:html';
 import 'dart:js';
 import 'package:dio/dio.dart';
 import 'package:project/HttpRequests/Requests.dart';
-import 'package:project/Pages/RegisterPage.dart';
-import 'package:project/Pages/SupplierPage.dart';
+import 'package:project/RegisterPage.dart';
+import 'package:project/SupplierPage.dart';
 import 'dart:js';
 
 import '../EndPoints.dart';
@@ -35,6 +35,7 @@ class LoginDemo extends StatefulWidget {
 
 class _LoginDemoState extends State<LoginDemo> {
   final emailcontroller = TextEditingController();
+  bool rememberMe = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -48,7 +49,6 @@ class _LoginDemoState extends State<LoginDemo> {
                 child: Container(
                   width: 200,
                   height: 150,
-                 
                   child: Image.network(
                       'https://img.freepik.com/premium-vector/build-business-bridge-connect-path-together-solution-teamwork-idea-cooperation-collaboration-success-together-concept-business-people-team-help-building-bridge-connect-way_212586-1841.jpg?w=996'),
                 ),
@@ -56,7 +56,6 @@ class _LoginDemoState extends State<LoginDemo> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 15),
-
               child: TextField(
                 controller: emailcontroller,
                 decoration: const InputDecoration(
@@ -85,13 +84,11 @@ class _LoginDemoState extends State<LoginDemo> {
                       }
                       final endpoints = EndPoints();
 
-                      
                       //print(jsonEncode(data));
                       var response = Requests()
                           .retailerloginrequest(emailcontroller.text.toString())
                           .then((response) {
                         if (response.statusCode == 200) {
-
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -130,7 +127,6 @@ class _LoginDemoState extends State<LoginDemo> {
                           .suploginrequest(emailcontroller.text.toString())
                           .then((response) {
                         if (response.statusCode == 200) {
-
                           Navigator.push(
                               context,
                               MaterialPageRoute(
@@ -151,8 +147,30 @@ class _LoginDemoState extends State<LoginDemo> {
                 ),
               ],
             ),
-           const SizedBox(
-              height: 130,
+            const SizedBox(
+              height: 50,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  "Remember Me",
+                  style: TextStyle(color: Colors.blue),
+                ),
+                Checkbox(
+                  checkColor: Colors.white,
+                  value: rememberMe,
+                  onChanged: (bool? value) {
+                    setState(() {
+                      rememberMe = value!;
+                      //true = remember
+                    });
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 25,
             ),
             TextButton(
               onPressed: () {

@@ -6,9 +6,9 @@ import "package:http/http.dart" as http;
 import 'package:project/EndPoints.dart';
 import 'package:project/HttpRequests/Requests.dart';
 import 'package:project/Models/ProductModel.dart';
-import 'package:project/Pages/CreateProductPage.dart';
-import 'package:project/Pages/DetailedProduct.dart';
-import 'package:project/Pages/PostProductPage.dart';
+import 'package:project/CreateProductPage.dart';
+import 'package:project/DetailedProduct.dart';
+import 'package:project/PostProductPage.dart';
 
 
 class SupplierPage extends StatefulWidget {
